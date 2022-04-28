@@ -1,47 +1,134 @@
 import static java.util.Objects.requireNonNull;
-
-enum Material{ CUERO, JEAN, LANA, ALGODON, PLASTICO};
-
-enum Categoria{ PRENDA_SUPERIOR, PREDNA_INFERIOR, CALZADO, ACCESORIO};
-
-class Tipo{
-  Categoria categoria;
-
-  Tipo(Categoria categoria){
-    this.categoria = categoria;
-  }
-
-  Categoria categoria(){
-    return categoria;
-  }
-}
-
-class Color{
-  int  rojo, verde, azul;
-
-  constructor(int rojo,int verde,int azul){
-    this.rojo = rojo;
-    this.verde = verde;
-    this.azul = azul;
-  }
-
-  String colorEnHexa(){
-    return String.format("#%02x%02x%02x", rojo, verde, azul);
-  }
-
-}
+import java.util.ArrayList;
+;
+enum Trama {LISA, RAYADA, CUADROS};
 
 public class Prenda {
 
   Tipo tipo;
   Material material;
+  Trama trama;
   Color color;
   Color colorSecundario;
 
-  Prenda(Tipo tipo,Material material,Color color, Color colorSecundario) {
-    this.tipo = requireNonNull(tipo, "es necesario ingresar un tipo");
-    this.material = requireNonNull(material, "es necesario ingresar un material");
-    this.color = requireNonNull(color, "es necesario ingresar un color");
+  Prenda(Tipo tipo,Material material,Trama trama,Color color, Color colorSecundario) {
+    this.tipo = tipo;
+    this.material = material;
+    this.trama = trama;
+    this.color = color;
     this.colorSecundario = colorSecundario;
   }
+}
+
+class Borrador{
+
+  Tipo tipo;
+  Material material;
+  Trama trama = Trama.LISA;
+  Color color;
+  Color colorSecundario;
+
+  Borrador(Tipo tipo){
+    requireNonNull(tipo, "es necesario ingresar un tipo");
+    this.tipo = tipo;
+  }
+
+  void definirMaterial(Material materia){
+    requireNonNull(material, "es necesario ingresar un material");
+    this.elMaterialEsValidoConElTipo(material);
+    this.material = materia;
+  }
+
+  void definirTrama(Trama trama){
+    requireNonNull(material, "es necesario ingresar un material");
+    this.trama = trama;
+  }
+
+  void definirColorPrimario(Color color){
+    requireNonNull(color, "es necesario ingresar un color");
+    this.color = color;
+  }
+
+  void definirColorSecundario(Color color){
+    this.colorSecundario = color;
+  }
+
+  Prenda crearPrenda(){
+    return new Prenda(tipo,material,trama,color,colorSecundario);
+  }
+}
+
+class Uniforme{
+
+  Prenda prendaSuperior;
+  Prenda prendaInferior;
+  Prenda calzado;
+
+  Uniforme(Prenda prendaSuperior,Prenda prendaInferior, Prenda calzado){
+    this.prendaSuperior = prendaSuperior;
+    this.prendaInferior = prendaInferior;
+    this.calzado = calzado;
+  }
+}
+
+abstract class Sastreria{
+
+  Uniforme crearUniforme() {
+    return new Uniforme(
+            this.crearPrendaSuperior(),
+            this.crearPrendaInferior(),
+            this.crearCalzado()
+    );
+  }
+    abstract Prenda crearPrendaSuperior();
+    abstract Prenda crearPrendaInferior();
+    abstract Prenda crearCalzado();
+
+};
+
+class SastreriaSanJuan extends Sastreria{
+  Prenda crearPrendaSuperior(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.PRENDA_SUPERIOR,[Material.ALGODON]));
+    borrador.definirColorPrimario(new Color(0,255,0));
+    borrador.definirMaterial(Material.ALGODON);
+    return borrador.crearPrenda();
+  };
+
+  Prenda crearPrendaInferior(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.PRENDA_INFERIOR,[Material.ACETATO]));
+    borrador.definirColorPrimario(new Color(100,100,100));
+    borrador.definirMaterial(Material.ACETATO);
+    return borrador.crearPrenda();
+  };
+
+  Prenda crearCalzado(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.CALZADO,[Material.CAUCHO]));
+    borrador.definirColorPrimario(new Color(0,0,0));
+    borrador.definirMaterial(Material.CAUCHO);
+    return borrador.crearPrenda();
+  };
+
+}
+
+class SastreriaJohnson extends Sastreria{
+  Prenda crearPrendaSuperior(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.PRENDA_SUPERIOR,[Material.LINO]));
+    borrador.definirColorPrimario(new Color(255,255,255));
+    borrador.definirMaterial(Material.LINO);
+    return borrador.crearPrenda();
+  };
+
+  Prenda crearPrendaInferior(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.PRENDA_INFERIOR,[Material.SARGA]));
+    borrador.definirColorPrimario(new Color(0,0,0));
+    borrador.definirMaterial(Material.SARGA);
+    return borrador.crearPrenda();
+  };
+
+  Prenda crearCalzado(){
+    Borrador borrador = new Borrador(new Tipo(Categoria.CALZADO,[Material.CUERO,Material.CUERINA]));
+    borrador.definirColorPrimario(new Color(0,0,0));
+    borrador.definirMaterial(Material.CUERO);
+    return borrador.crearPrenda();
+  };
 }

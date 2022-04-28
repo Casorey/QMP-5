@@ -1,2 +1,1 @@
-package PACKAGE_NAME;public class Material {
-}
+public enum Material {CUERO, JEAN, LANA, ALGODON, PLASTICO,ACETATO, CAUCHO, LINO, SARGA, CUERINA}
