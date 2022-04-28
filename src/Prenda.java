@@ -1,15 +1,17 @@
-public enum Material{ CUERO, JEAN, LANA, ALGODON, PLASTICO};
+import static java.util.Objects.requireNonNull;
 
-public enum Categoria{ PRENDA_SUPERIOR, PREDNA_INFERIOR, CALZADO, ACCESORIO};
+enum Material{ CUERO, JEAN, LANA, ALGODON, PLASTICO};
 
-public class Tipo{
+enum Categoria{ PRENDA_SUPERIOR, PREDNA_INFERIOR, CALZADO, ACCESORIO};
+
+class Tipo{
   Categoria categoria;
 
-  constructor(Categoria categoria){
+  Tipo(Categoria categoria){
     this.categoria = categoria;
   }
 
-  method categoria(){
+  Categoria categoria(){
     return categoria;
   }
 }
@@ -23,7 +25,7 @@ class Color{
     this.azul = azul;
   }
 
-  method colorEnHexa(){
+  String colorEnHexa(){
     return String.format("#%02x%02x%02x", rojo, verde, azul);
   }
 
@@ -36,7 +38,7 @@ public class Prenda {
   Color color;
   Color colorSecundario;
 
-  constructor(Tipo tipo,Material material,Color color, Color colorSecundario) {
+  Prenda(Tipo tipo,Material material,Color color, Color colorSecundario) {
     this.tipo = requireNonNull(tipo, "es necesario ingresar un tipo");
     this.material = requireNonNull(material, "es necesario ingresar un material");
     this.color = requireNonNull(color, "es necesario ingresar un color");
