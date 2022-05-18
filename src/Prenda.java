@@ -1,6 +1,6 @@
 import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
-;
+
 enum Trama {LISA, RAYADA, CUADROS};
 
 public class Prenda {
@@ -17,6 +17,38 @@ public class Prenda {
     this.trama = trama;
     this.color = color;
     this.colorSecundario = colorSecundario;
+  }
+
+  Categoria categoria(){
+    return tipo.categoria();
+  }
+
+  private int cantidadDeUsos = 0;
+  private EstadoPrenda estadoPrenda= new PrendaLimpia();
+
+  public void serUsada(){
+    estadoPrenda.usar(this);}
+
+  public void lavar(){
+    estadoPrenda.lavarPrenda(this);
+  }
+  public void nuevoUso(){
+    this.cantidadDeUsos+=1;
+  }
+
+  public int getCantidadDeUsos() {
+    return 0;
+  }
+  public void setEstado(EstadoPrenda estado){
+    this.estadoPrenda =  estado;
+  }
+
+  public void setCantidadUsos(int i) {
+    this.cantidadDeUsos = i;
+  }
+
+  boolean esSugerible(){
+    return estadoPrenda.sugerible();
   }
 }
 
@@ -63,6 +95,7 @@ class Uniforme{
   Prenda prendaSuperior;
   Prenda prendaInferior;
   Prenda calzado;
+  ArrayList<Prenda> Accesorios;
 
   Uniforme(Prenda prendaSuperior,Prenda prendaInferior, Prenda calzado){
     this.prendaSuperior = prendaSuperior;
@@ -132,3 +165,4 @@ class SastreriaJohnson extends Sastreria{
     return borrador.crearPrenda();
   };
 }
+
