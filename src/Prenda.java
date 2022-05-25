@@ -27,6 +27,7 @@ public class Prenda {
   private EstadoPrenda estadoPrenda= new PrendaLimpia();
 
   public void serUsada(){
+    nuevoUso();
     estadoPrenda.usar(this);}
 
   public void lavar(){
