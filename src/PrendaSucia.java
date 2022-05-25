@@ -2,9 +2,7 @@ public class PrendaSucia extends EstadoPrenda {
 
   @Override
   public void usar(Prenda prenda) {
-    prenda.serUsada();
     prenda.setEstado(new PrendaPercudida());
-
   }
 
   @Override
