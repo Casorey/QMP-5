@@ -4,19 +4,24 @@ import java.util.Map;
 public class AppClima {
 
   Map<String, Object> condicionesClima;
+  Duration tiempoExpiracion = Duration("12:00:00");
+  DateTime tiempoLlamadaAnterior;
 
-  AppClima(){
-    AccuWeatherAPI apiClima = new AccuWeatherAPI();
-    List<Map<String, Object>> condicionesClimaticas = apiClima.getWeather("Buenos Aires, Argentina");
-    this.condicionesClima = condicionesClimaticas.get(0);
+  public void actualizarDatos(){
+    if(this.expiro() || this.condicionesClima == NULL){
+      AccuWeatherAPI apiClima = new AccuWeatherAPI();
+      List<Map<String, Object>> condicionesClimaticas = apiClima.getWeather("Buenos Aires, Argentina");
+      this.condicionesClima = condicionesClimaticas.get(0);
+      this.tiempoLlamadaAnterior = condicionesClima.get("DateTime");
+    }
   }
 
-  public boolean esDeDia(){
-    return (boolean) condicionesClima.get("IsDaylight");
+  private boolean expiro() {
+    return DateTime.now > tiempoLlamadaAnterior + tiempoExpiracion;
   }
 
   public boolean vaALlover(){
-    return (int) condicionesClima.get("PrecipitationProbabili") >= 0.5;
+    return (int) condicionesClima.get("PrecipitationProbabili") >= 0.8;
   }
 
   public double temperatura(){

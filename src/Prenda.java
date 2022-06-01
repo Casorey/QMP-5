@@ -10,13 +10,19 @@ public class Prenda {
   Trama trama;
   Color color;
   Color colorSecundario;
+  double temperaturaMaxima;
+  double temperaturaMinima;
+  boolean aptoParaLluvia;
 
-  Prenda(Tipo tipo,Material material,Trama trama,Color color, Color colorSecundario) {
+  Prenda(Tipo tipo,Material material,Trama trama,Color color, Color colorSecundario, double temperaturaMaxima,double temperaturaMinima, boolean aptoParaLluvia) {
     this.tipo = tipo;
     this.material = material;
     this.trama = trama;
     this.color = color;
     this.colorSecundario = colorSecundario;
+    this.temperaturaMaxima = temperaturaMaxima;
+    this.temperaturaMinima = temperaturaMinima;
+    this.aptoParaLluvia = aptoParaLluvia;
   }
 
   Categoria categoria(){
@@ -60,6 +66,9 @@ class Borrador{
   Trama trama = Trama.LISA;
   Color color;
   Color colorSecundario;
+  double temperaturaMaxima;
+  double temperaturaMinima;
+  boolean aptoParaLluvia;
 
   Borrador(Tipo tipo){
     requireNonNull(tipo, "es necesario ingresar un tipo");
@@ -82,12 +91,23 @@ class Borrador{
     this.color = color;
   }
 
+  void definirTemperaturaMaxima(double tempMaxima){
+    this.temperaturaMaxima = tempMaxima;
+  }
+
+  void definirTemperaturaMinima(double tempMin){
+    this.temperaturaMinima = tempMin;
+  }
+
+  void definirAptoParaLluvia(boolean esAptoParaLluvia){
+    this.aptoParaLluvia = esAptoParaLluvia;
+  }
+
   void definirColorSecundario(Color color){
     this.colorSecundario = color;
   }
-
   Prenda crearPrenda(){
-    return new Prenda(tipo,material,trama,color,colorSecundario);
+    return new Prenda(tipo,material,trama,color,colorSecundario,temperaturaMaxima, temperaturaMinima, aptoParaLluvia);
   }
 }
 
