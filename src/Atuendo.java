@@ -16,5 +16,11 @@ public class Atuendo {
     this.accesorios = accesorios;
   }
 
+  boolean esAptoParaClima(double temperatura, boolean lluvia) {
+    return torso.esSugerible(temperatura, lluvia) &&
+           piernas.esSugerible(temperatura, lluvia) &&
+           pies.esSugerible(temperatura, lluvia);
+  }
+
 
 }

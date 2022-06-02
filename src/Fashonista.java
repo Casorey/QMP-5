@@ -1,14 +1,25 @@
+import java.util.List;
+
 public class Fashonista {
+
+    AppClima estadoDelTiempo;
+    Guardarropas guardarropas;
 
     public Atuendo sugerirAtuendo(String direccion, Guardarropas guardarrpas) {
 
-      //completar fashonista
+     List<Atuendo> atuendos = guardarropas.atuendosDisponibles;
+     Atuendo unAtuendo =atuendos.stream()
+             .filter(atuendoSugerido -> atuendoSugerido.esAptoParaClima(temperatura(),estalloviendo()))
+             .findFirst()
+             .get();
+     return unAtuendo;
 
-      List<Atuendo> combinaciones = guardarropas.todasLasPosiblesCombinaciones()
-      return combinaciones
-          .filter(combinacion -> combinacion.aptaParaTemperatura(estadoDelTiempo.temperatura))
-          .filter(combinacion -> combinacion.aptaParaHumedad(estadoDelTiempo.humedad))
-          .first();
+    }
 
+    double temperatura(){
+        return estadoDelTiempo.temperatura();
+    }
+    boolean estalloviendo(){
+        return estadoDelTiempo.vaALlover();
     }
 }

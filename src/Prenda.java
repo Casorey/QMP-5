@@ -54,8 +54,27 @@ public class Prenda {
     this.cantidadDeUsos = i;
   }
 
-  boolean esSugerible(){
-    return estadoPrenda.sugerible();
+  boolean esSugerible(double temperatura, boolean lluvia){
+
+    if(lluvia) {
+      return estadoPrenda.sugerible() &&
+              this.aptoTemperatura(temperatura) &&
+              this.isAptoParaLluvia();
+    } else {
+
+      return estadoPrenda.sugerible() &&
+             this.aptoTemperatura(temperatura);
+
+
+    }
+  }
+
+  boolean aptoTemperatura(double temperatura){
+    return temperaturaMinima <= temperatura && temperatura <= temperaturaMaxima;
+  }
+
+  boolean isAptoParaLluvia(){
+    return aptoParaLluvia;
   }
 }
 
