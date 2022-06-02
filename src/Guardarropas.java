@@ -29,7 +29,19 @@ public class Guardarropas {
   }
 
   public List<Prenda> sugerirAccesorios(int cantidadDeAccesorios){
-        return seleccionarVariosRandom(prendas.stream().filter(prenda -> prenda.categoria() == Categoria.ACCESORIO),cantidadDeAccesorios);
+    Random rand = new Random();
+    List<Prenda> listaPrendas = (prendas.stream().filter(prenda -> prenda.categoria() == Categoria.ACCESORIO))
+            .collect(Collectors.toList());
+    List<Prenda> accesoriosRandom = new ArrayList<>();
+    Prenda accesorioRandom;
+
+    for (int i = 0; i < cantidadDeAccesorios; i++){
+      accesorioRandom = listaPrendas.get(rand.nextInt(listaPrendas.size()));
+      accesoriosRandom.add(accesorioRandom);
+      listaPrendas.remove(accesorioRandom);
+
+    }
+        return accesoriosRandom;
   }
 
   public Atuendo sugerirAtuendo(int cantidadDeAccesorios, double temperatura, boolean lluvia) {
