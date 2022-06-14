@@ -6,9 +6,52 @@ import java.util.stream.Collectors;
 public class Guardarropas {
 
    public List<Atuendo> atuendosDisponibles;
-   private List<Prenda> prendas;
+   private List<Prenda> prendas = new ArrayList<>();
 
-  Prenda sugerirPrenda(Categoria categoria, double temperatura, boolean lluvia){
+   private Usuario propietario;
+   private List<Usuario> genteQueLoConoce = new ArrayList<>();
+   private List<Propuesta> ropaSugerida = new ArrayList<>();
+
+   private List<Propuesta> sugerenciasPrendasAQuitar = new ArrayList<>();
+
+   Guardarropas(Usuario propietario){
+       this.propietario = propietario;
+   }
+
+   public void agregaSugerenciaPrendaAQuitar(Prenda unaPrenda) throws PrendaNoEstaEnGuardaropa {
+       if (prendas.contains(unaPrenda)){
+           Propuesta unaPropuestaNueva = new Propuesta(unaPrenda, TipoPropuesta.QUITAR);
+           sugerenciasPrendasAQuitar.add(unaPropuestaNueva);
+       } else {
+           throw new PrendaNoEstaEnGuardaropa("no existe esta prenda en el guardarropas");
+       }
+   }
+
+   public void agregaPrendaSugerencia(Prenda unaPrenda){
+       Propuesta unaPropuestaNueva = new Propuesta(unaPrenda, TipoPropuesta.AGREGAR);
+       ropaSugerida.add(unaPropuestaNueva);
+   }
+
+   public void agregarUsuario(Usuario unUsuario){
+     genteQueLoConoce.add(unUsuario);
+   }
+
+   public void quitarUsuario(Usuario unUsuario){
+     genteQueLoConoce.remove(unUsuario);
+   }
+
+   public void agregarPrenda(Prenda unaPrenda){
+     prendas.add(unaPrenda);
+   }
+
+   public void sacarPrendar(Prenda unaPrenda) throws PrendaNoEstaEnGuardaropa {
+     if(!prendas.contains(unaPrenda)){
+       throw new PrendaNoEstaEnGuardaropa("La prenda no esta en este guardaropa");
+     }
+     prendas.remove(unaPrenda);
+   }
+
+  public Prenda sugerirPrenda(Categoria categoria, double temperatura, boolean lluvia){
     Random rand =new Random();
     List<Prenda> listaPrendas = (prendas.stream().filter(prenda -> prenda.categoria() == categoria && prenda.esSugerible(temperatura, lluvia)))
             .collect(Collectors.toList());
