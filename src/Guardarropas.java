@@ -10,26 +10,32 @@ public class Guardarropas {
 
    private Usuario propietario;
    private List<Usuario> genteQueLoConoce = new ArrayList<>();
-   private List<Propuesta> ropaSugerida = new ArrayList<>();
-
-   private List<Propuesta> sugerenciasPrendasAQuitar = new ArrayList<>();
+   private List<Propuesta> propuestas = new ArrayList<>();
 
    Guardarropas(Usuario propietario){
        this.propietario = propietario;
    }
 
+   public List<Propuesta> getSugerenciasPrendasAAgregar(){return propuestas;}
+
+
+    public void evaluarPropuesta(){
+       propuestas.forEach(propuesta -> propietario.evaluarPropuesta(propuesta));
+
+   }
+
    public void agregaSugerenciaPrendaAQuitar(Prenda unaPrenda) throws PrendaNoEstaEnGuardaropa {
        if (prendas.contains(unaPrenda)){
-           Propuesta unaPropuestaNueva = new Propuesta(unaPrenda, TipoPropuesta.QUITAR);
-           sugerenciasPrendasAQuitar.add(unaPropuestaNueva);
+           Propuesta unaPropuestaNueva = new PropuestaQuitar(unaPrenda, TipoPropuesta.QUITAR);
+           propuestas.add(unaPropuestaNueva);
        } else {
            throw new PrendaNoEstaEnGuardaropa("no existe esta prenda en el guardarropas");
        }
    }
 
    public void agregaPrendaSugerencia(Prenda unaPrenda){
-       Propuesta unaPropuestaNueva = new Propuesta(unaPrenda, TipoPropuesta.AGREGAR);
-       ropaSugerida.add(unaPropuestaNueva);
+       Propuesta unaPropuestaNueva = new PropuestaAgregar(unaPrenda, TipoPropuesta.AGREGAR);
+       propuestas.add(unaPropuestaNueva);
    }
 
    public void agregarUsuario(Usuario unUsuario){
@@ -97,4 +103,12 @@ public class Guardarropas {
   }
 
 
+    public void sacarSugerencia(Propuesta propuestaAgregar) {
+        propuestas.remove(propuestaAgregar);
+    }
+
+    public void quitarPrenda(PropuestaQuitar unaPropuesta) {
+       prendas.remove(unaPropuesta.getUnaPrenda());
+       propuestas.remove(unaPropuesta);
+    }
 }
