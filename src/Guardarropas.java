@@ -19,10 +19,6 @@ public class Guardarropas {
    public List<Propuesta> getSugerenciasPrendasAAgregar(){return propuestas;}
 
 
-    public void evaluarPropuesta(){
-       propuestas.forEach(propuesta -> propietario.evaluarPropuesta(propuesta));
-
-   }
 
    public void agregaSugerenciaPrendaAQuitar(Prenda unaPrenda) throws PrendaNoEstaEnGuardaropa {
        if (prendas.contains(unaPrenda)){
@@ -107,8 +103,7 @@ public class Guardarropas {
         propuestas.remove(propuestaAgregar);
     }
 
-    public void quitarPrenda(PropuestaQuitar unaPropuesta) {
-       prendas.remove(unaPropuesta.getUnaPrenda());
-       propuestas.remove(unaPropuesta);
+    public void quitarPrenda(Prenda unaPrenda) {
+       prendas.remove(unaPrenda);
     }
 }

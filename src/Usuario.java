@@ -56,11 +56,10 @@ public class Usuario {
         if (!guardarropasQueLePertenecen.contains(unGuardarropa)) {
             throw new NoConoceEsteGuardarropa("no le pertenece el guardarropas");
         }
-        unaPropuesta.serAceptada();
+        unaPropuesta.serAceptada(unGuardarropa);
+    }
+    public void deshacer(Propuesta unaPropuesta, Guardarropas unGuardarropa){
+        unaPropuesta.deshacer(unGuardarropa);
     }
 
-    public void evaluarPropuesta(Propuesta unaPropuesta) {
-
-
-    }
 }

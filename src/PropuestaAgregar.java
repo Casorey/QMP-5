@@ -7,9 +7,11 @@ public class PropuestaAgregar extends Propuesta{
 
     @Override
     public void procesarPropuesta(Guardarropas unGuardarropas){
-
         unGuardarropas.agregarPrenda(this.getUnaPrenda());
-        unGuardarropas.sacarSugerencia(this);
+    }
 
+    @Override
+    public void deshacerCambio(Guardarropas unGuardarropas){
+        unGuardarropas.quitarPrenda(this.getUnaPrenda());
     }
 }
