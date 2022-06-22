@@ -1,1 +1,3 @@
+package main;
+
 public enum Material {CUERO, JEAN, LANA, ALGODON, PLASTICO,ACETATO, CAUCHO, LINO, SARGA, CUERINA}

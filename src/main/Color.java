@@ -1,3 +1,5 @@
+package main;
+
 public class Color {
     int rojo, verde, azul;
 

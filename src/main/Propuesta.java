@@ -1,3 +1,5 @@
+package main;
+
 public abstract class Propuesta {
     private Prenda unaPrenda;
     private TipoPropuesta tipoDePropuesta;

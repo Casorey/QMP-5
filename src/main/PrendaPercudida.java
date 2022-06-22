@@ -1,3 +1,5 @@
+package main;
+
 public class PrendaPercudida extends EstadoPrenda {
 
   @Override

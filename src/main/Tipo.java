@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 
 enum Categoria{ PRENDA_SUPERIOR, PRENDA_INFERIOR, CALZADO, ACCESORIO};
